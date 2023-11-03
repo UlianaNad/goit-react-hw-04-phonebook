@@ -10,14 +10,15 @@ export const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
-  useEffect(() =>{
-    const contacts = JSON.parse(window.localStorage.getItem('contacts'));
-    
-      if(contacts?.length) {
-        setContacts({contacts})
-      }
-  },[])
 
+  useEffect(() => {
+    const storedContacts = JSON.parse(window.localStorage.getItem('contacts'));
+    
+    if (storedContacts?.length) {
+      setContacts(storedContacts)
+    }
+  }, []);
+  
   useEffect(() =>{
       window.localStorage.setItem('contacts', JSON.stringify(contacts))
   },[contacts])
@@ -44,7 +45,7 @@ export const App = () => {
   };
 
   const getFilterData = () => {
-    return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
+    return contacts?.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
   };
 
   return (
